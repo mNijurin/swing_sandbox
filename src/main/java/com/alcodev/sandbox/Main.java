@@ -1,8 +1,8 @@
 package com.alcodev.sandbox;
 
-import com.alcodev.sandbox.forms.mainform.MainForm;
-import com.alcodev.sandbox.forms.mainform.MainFormActionListener;
-import com.alcodev.sandbox.forms.mainform.MainFormDataClass;
+import com.alcodev.sandbox.forms.editform.EditForm;
+import com.alcodev.sandbox.forms.editform.EditFormActionListener;
+import com.alcodev.sandbox.forms.editform.EditFormDataClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,23 +19,23 @@ public class Main {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Main Frame");
-        final MainForm mainForm = new MainForm();
-        MainFormDataClass data = new MainFormDataClass();
+        final EditForm editForm = new EditForm();
+        EditFormDataClass data = new EditFormDataClass();
         data.setName("Василий");
         data.setSurname("Пупкин");
         Calendar birthdayTmp = Calendar.getInstance();
         birthdayTmp.set(2012, 5, 12);
         data.setBirthday(birthdayTmp.getTime());
 
-        mainForm.setData(data);
-        mainForm.setActionListener(new MainFormActionListener() {
+        editForm.setData(data);
+        editForm.setActionListener(new EditFormActionListener() {
             @Override
             public void submitClick() {
-                MainFormDataClass result = mainForm.getData();
+                EditFormDataClass result = editForm.getData();
                 logger.debug("Edit result: {}", result);
             }
         });
-        frame.add(mainForm.getContentPanel());
+        frame.add(editForm.getContentPanel());
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
