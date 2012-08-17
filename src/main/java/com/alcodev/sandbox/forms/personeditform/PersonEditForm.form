@@ -41,7 +41,9 @@
           </grid>
           <forms defaultalign-horz="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <name value="textFieldName"/>
+        </properties>
       </component>
       <component id="a8002" class="javax.swing.JLabel">
         <constraints>
@@ -59,7 +61,9 @@
           </grid>
           <forms defaultalign-horz="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <name value="textFieldSurname"/>
+        </properties>
       </component>
       <component id="1260" class="javax.swing.JButton" binding="buttonSubmit">
         <constraints>
@@ -78,6 +82,7 @@
           <forms defaultalign-horz="false"/>
         </constraints>
         <properties>
+          <name value="formattedTextFieldBirthday"/>
           <text value=""/>
         </properties>
       </component>

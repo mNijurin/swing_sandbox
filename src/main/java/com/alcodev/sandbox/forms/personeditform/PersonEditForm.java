@@ -55,6 +55,6 @@ public class PersonEditForm {
         adapter = new BeanAdapter<PersonEditFormData>(new PersonEditFormData());
         textFieldName = BasicComponentFactory.createTextField(adapter.getValueModel("name"));
         textFieldSurname = BasicComponentFactory.createTextField(adapter.getValueModel("surname"));
-        formattedTextFieldBirthday = BasicComponentFactory.createFormattedTextField(adapter.getValueModel("birthday"), new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss"));
+        formattedTextFieldBirthday = BasicComponentFactory.createFormattedTextField(adapter.getValueModel("birthday"), new SimpleDateFormat("dd.MM.yyyy"));
     }
 }
