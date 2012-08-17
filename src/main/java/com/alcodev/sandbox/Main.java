@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import java.util.Calendar;
 
 /**
  * User: mnijurin
@@ -22,6 +23,10 @@ public class Main {
         MainFormDataClass data = new MainFormDataClass();
         data.setName("Василий");
         data.setSurname("Пупкин");
+        Calendar birthdayTmp = Calendar.getInstance();
+        birthdayTmp.set(2012, 5, 12);
+        data.setBirthday(birthdayTmp.getTime());
+
         mainForm.setData(data);
         mainForm.setActionListener(new MainFormActionListener() {
             @Override

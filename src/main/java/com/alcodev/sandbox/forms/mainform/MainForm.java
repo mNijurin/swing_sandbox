@@ -6,6 +6,7 @@ import com.jgoodies.binding.beans.BeanAdapter;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 
 /**
  * User: mnijurin
@@ -54,5 +55,6 @@ public class MainForm {
         adapter = new BeanAdapter<MainFormDataClass>(new MainFormDataClass());
         textFieldName = BasicComponentFactory.createTextField(adapter.getValueModel("name"));
         textFieldSurname = BasicComponentFactory.createTextField(adapter.getValueModel("surname"));
+        formattedTextFieldBirthday = BasicComponentFactory.createFormattedTextField(adapter.getValueModel("birthday"), new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss"));
     }
 }
