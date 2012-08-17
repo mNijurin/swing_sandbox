@@ -7,6 +7,7 @@ import ca.odell.glazedlists.impl.ThreadSafeList;
 import ca.odell.glazedlists.swing.EventTableModel;
 
 import javax.swing.*;
+import java.text.SimpleDateFormat;
 
 /**
  * User: mnijurin
@@ -15,6 +16,7 @@ import javax.swing.*;
  */
 public class PersonsTableForm {
     public static final int COULUMNS_COUNT = 3;
+    public static final int ROW_HEIGHT = 30;
     private JTable tableUserData;
     private JPanel contentPanel;
     private EventList<PersonsTableFormData> data = new ThreadSafeList<PersonsTableFormData>(new BasicEventList<PersonsTableFormData>());
@@ -22,6 +24,7 @@ public class PersonsTableForm {
     public PersonsTableForm() {
         EventTableModel<PersonsTableFormData> model = new EventTableModel<PersonsTableFormData>(data, new PersonTableFormat());
         tableUserData.setModel(model);
+        tableUserData.setRowHeight(ROW_HEIGHT);
         data.addListEventListener(model);
     }
 
@@ -41,21 +44,31 @@ public class PersonsTableForm {
 
         @Override
         public String getColumnName(int index) {
-            switch (index){
-                case 0: return "Имя";
-                case 1: return "Фамилия";
-                case 2: return "Дата рождения";
-                default: throw new IllegalStateException("Column count must be < 3");
+            switch (index) {
+                case 0:
+                    return "Имя";
+                case 1:
+                    return "Фамилия";
+                case 2:
+                    return "Дата рождения";
+                default:
+                    throw new IllegalStateException("Column count must be < 3");
             }
         }
 
         @Override
         public Object getColumnValue(PersonsTableFormData item, int index) {
-            switch (index){
-                case 0: return item.getName();
-                case 1: return item.getSurname();
-                case 2: return item.getBirthday();
-                default: throw new IllegalStateException("Column count must be < 3");
+            switch (index) {
+                case 0:
+                    return item.getName();
+                case 1:
+                    return item.getSurname();
+                case 2: {
+                    SimpleDateFormat formatBirthday = new SimpleDateFormat("yyyy-mm-dd");
+                    return formatBirthday.format(item.getBirthday());
+                }
+                default:
+                    throw new IllegalStateException("Column count must be < 3");
             }
         }
     }
