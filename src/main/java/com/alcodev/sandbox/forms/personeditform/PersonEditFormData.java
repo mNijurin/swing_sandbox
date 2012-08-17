@@ -1,4 +1,4 @@
-package com.alcodev.sandbox.forms.editform;
+package com.alcodev.sandbox.forms.personeditform;
 
 import com.jgoodies.binding.beans.Model;
 
@@ -9,7 +9,7 @@ import java.util.Date;
  * Date: 8/17/12
  * Time: 12:06 PM
  */
-public class EditFormDataClass extends Model{
+public class PersonEditFormData extends Model{
     private String name;
     private String surname;
     private Date birthday;

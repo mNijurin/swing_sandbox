@@ -1,15 +1,15 @@
-package com.alcodev.sandbox.forms.mainform;
+package com.alcodev.sandbox.forms.tableform;
 
-import com.jgoodies.binding.beans.Model;
+import ca.odell.glazedlists.EventList;
 
 import java.util.Date;
 
 /**
  * User: mnijurin
  * Date: 8/17/12
- * Time: 12:06 PM
+ * Time: 4:25 PM
  */
-public class MainFormDataClass extends Model{
+public class PersonsTableFormData {
     private String name;
     private String surname;
     private Date birthday;
@@ -19,9 +19,7 @@ public class MainFormDataClass extends Model{
     }
 
     public void setName(String name) {
-        String oldName = this.name;
         this.name = name;
-        firePropertyChange("name", oldName, name);
     }
 
     public String getSurname() {
@@ -29,9 +27,7 @@ public class MainFormDataClass extends Model{
     }
 
     public void setSurname(String surname) {
-        String oldSurname = this.surname;
         this.surname = surname;
-        firePropertyChange("surname", oldSurname, surname);
     }
 
     public Date getBirthday() {
@@ -39,13 +35,6 @@ public class MainFormDataClass extends Model{
     }
 
     public void setBirthday(Date birthday) {
-        Date oldBirthday = this.birthday;
         this.birthday = birthday;
-        firePropertyChange("birthday", oldBirthday, birthday);
-    }
-
-    @Override
-    public String toString() {
-        return name + " " + surname + " " + birthday.toString();
     }
 }

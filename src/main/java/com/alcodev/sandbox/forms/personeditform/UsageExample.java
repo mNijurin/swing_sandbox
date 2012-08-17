@@ -1,8 +1,5 @@
-package com.alcodev.sandbox;
+package com.alcodev.sandbox.forms.personeditform;
 
-import com.alcodev.sandbox.forms.editform.EditForm;
-import com.alcodev.sandbox.forms.editform.EditFormActionListener;
-import com.alcodev.sandbox.forms.editform.EditFormDataClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,13 +11,13 @@ import java.util.Calendar;
  * Date: 8/17/12
  * Time: 11:08 AM
  */
-public class Main {
-    private static Logger logger = LoggerFactory.getLogger(Main.class);
+public class UsageExample {
+    private static Logger logger = LoggerFactory.getLogger(UsageExample.class);
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Main Frame");
-        final EditForm editForm = new EditForm();
-        EditFormDataClass data = new EditFormDataClass();
+        JFrame frame = new JFrame("UsageExample Frame");
+        final PersonEditForm editForm = new PersonEditForm();
+        PersonEditFormData data = new PersonEditFormData();
         data.setName("Василий");
         data.setSurname("Пупкин");
         Calendar birthdayTmp = Calendar.getInstance();
@@ -28,10 +25,10 @@ public class Main {
         data.setBirthday(birthdayTmp.getTime());
 
         editForm.setData(data);
-        editForm.setActionListener(new EditFormActionListener() {
+        editForm.setActionListener(new PersonEditFormActionListener() {
             @Override
             public void submitClick() {
-                EditFormDataClass result = editForm.getData();
+                PersonEditFormData result = editForm.getData();
                 logger.debug("Edit result: {}", result);
             }
         });
