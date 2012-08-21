@@ -31,7 +31,7 @@ public class UsageExample {
                     data.setBirthday(new Date());
                     form.getData().add(data);
                     try {
-                        Thread.sleep(10000);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }

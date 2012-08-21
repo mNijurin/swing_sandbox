@@ -32,6 +32,7 @@ public class PersonEditFormData extends Model{
         String oldSurname = this.surname;
         this.surname = surname;
         firePropertyChange("surname", oldSurname, surname);
+        System.out.println("surname after change = " + this.surname);
     }
 
     public Date getBirthday() {
@@ -42,6 +43,7 @@ public class PersonEditFormData extends Model{
         Date oldBirthday = this.birthday;
         this.birthday = birthday;
         firePropertyChange("birthday", oldBirthday, birthday);
+        System.out.println("birthday after change = " + this.birthday.toString());
     }
 
     @Override

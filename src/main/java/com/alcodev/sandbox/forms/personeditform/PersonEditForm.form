@@ -82,6 +82,7 @@
           <forms defaultalign-horz="false"/>
         </constraints>
         <properties>
+          <focusLostBehavior value="1"/>
           <name value="formattedTextFieldBirthday"/>
           <text value=""/>
         </properties>
