@@ -33,6 +33,7 @@ public class UsageExample {
                 logger.debug("click result: name = {}, surname = {}, birthday = {} ", new Object[]{result.getName(), result.getSurname(), result.getBirthday()});
             }
         });
+
         final Random random = new Random();
         new Thread(new Runnable() {
             @Override

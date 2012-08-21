@@ -1,7 +1,10 @@
 package com.alcodev.sandbox.forms.persontableform;
 
+import com.alcodev.sandbox.forms.tableform.PersonTableFormActionListener;
 import com.alcodev.sandbox.forms.tableform.PersonsTableForm;
 import com.alcodev.sandbox.forms.tableform.PersonsTableFormData;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
 import org.uispec4j.Table;
 import org.uispec4j.UISpecAdapter;
 import org.uispec4j.UISpecTestCase;
@@ -20,6 +23,7 @@ import java.util.Random;
 public class PersonTableFormTests extends UISpecTestCase {
     private Random random = new Random();
     private PersonsTableForm form = new PersonsTableForm();
+    private Mockery mockery = new Mockery();
 
     @Override
     protected void setUp() throws Exception {
@@ -51,5 +55,33 @@ public class PersonTableFormTests extends UISpecTestCase {
         assertTrue(table.contentEquals(new String[][]{
                 {expectedName, expectedSurname, birthdayFormatter.format(expectedBirthday)}
         }));
+    }
+
+    public void testActionListener() {
+        final PersonTableFormActionListener actionListener = mockery.mock(PersonTableFormActionListener.class);
+
+        String expectedSurname = "Surname" + random.nextInt();
+        Date expectedBirthday = new Date();
+        String expectedName = "Name" + random.nextInt();
+
+        final PersonsTableFormData data = new PersonsTableFormData();
+        data.setName(expectedName);
+        data.setSurname(expectedSurname);
+        SimpleDateFormat birthdayFormatter = new SimpleDateFormat("dd.MM.yyyy");
+        data.setBirthday(expectedBirthday);
+
+        form.getPersonsTableData().add(data);
+
+        form.setActionListener(actionListener);
+
+        Table table = getMainWindow().getTable();
+//        table.doubleClick(0, 0);
+
+        mockery.checking(new Expectations() {{
+            oneOf(actionListener).onRowClick(data);
+        }});
+        table.doubleClick(0, 0);
+
+        mockery.assertIsSatisfied();
     }
 }
