@@ -64,7 +64,7 @@ public class PersonsTableForm {
                 case 1:
                     return item.getSurname();
                 case 2: {
-                    SimpleDateFormat formatBirthday = new SimpleDateFormat("yyyy-mm-dd");
+                    SimpleDateFormat formatBirthday = new SimpleDateFormat("dd.MM.yyyy");
                     return formatBirthday.format(item.getBirthday());
                 }
                 default:
