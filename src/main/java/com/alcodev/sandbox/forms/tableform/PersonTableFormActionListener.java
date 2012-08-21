@@ -6,5 +6,5 @@ package com.alcodev.sandbox.forms.tableform;
  * Time: 12:28 PM
  */
 public interface PersonTableFormActionListener {
-
+    void onRowClick(PersonsTableFormData rowData);
 }

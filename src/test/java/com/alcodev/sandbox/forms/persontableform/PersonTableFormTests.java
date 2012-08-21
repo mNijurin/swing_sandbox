@@ -44,11 +44,11 @@ public class PersonTableFormTests extends UISpecTestCase {
         SimpleDateFormat birthdayFormatter = new SimpleDateFormat("dd.MM.yyyy");
         data.setBirthday(expectedBirthday);
 
-        form.getData().add(data);
+        form.getPersonsTableData().add(data);
 
         Table table = getMainWindow().getTable();
 
-        assertTrue(table.contentEquals(new String[] []{
+        assertTrue(table.contentEquals(new String[][]{
                 {expectedName, expectedSurname, birthdayFormatter.format(expectedBirthday)}
         }));
     }

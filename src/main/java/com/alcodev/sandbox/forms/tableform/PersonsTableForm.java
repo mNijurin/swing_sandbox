@@ -7,6 +7,8 @@ import ca.odell.glazedlists.impl.ThreadSafeList;
 import ca.odell.glazedlists.swing.EventTableModel;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 
 /**
@@ -17,23 +19,42 @@ import java.text.SimpleDateFormat;
 public class PersonsTableForm {
     public static final int COULUMNS_COUNT = 3;
     public static final int ROW_HEIGHT = 30;
+    public static final int DOUBLE_CLICK = 2;
     private JTable tableUserData;
     private JPanel contentPanel;
-    private EventList<PersonsTableFormData> data = new ThreadSafeList<PersonsTableFormData>(new BasicEventList<PersonsTableFormData>());
+    private EventList<PersonsTableFormData> personsTableData = new ThreadSafeList<PersonsTableFormData>(new BasicEventList<PersonsTableFormData>());
+
+    private PersonTableFormActionListener actionListener;
 
     public PersonsTableForm() {
-        EventTableModel<PersonsTableFormData> model = new EventTableModel<PersonsTableFormData>(data, new PersonTableFormat());
+        final EventTableModel<PersonsTableFormData> model = new EventTableModel<PersonsTableFormData>(personsTableData, new PersonTableFormat());
         tableUserData.setModel(model);
         tableUserData.setRowHeight(ROW_HEIGHT);
-        data.addListEventListener(model);
+        tableUserData.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if (actionListener != null && mouseEvent.getClickCount() == DOUBLE_CLICK) {
+                    JTable target = (JTable) mouseEvent.getSource();
+                    int row = target.getSelectedRow();
+                    UsageExample.logger.debug("row {} clicked", row);
+                    actionListener.onRowClick(model.getElementAt(row));
+                }
+            }
+        });
+
+        personsTableData.addListEventListener(model);
+    }
+
+    public void setActionListener(PersonTableFormActionListener actionListener) {
+        this.actionListener = actionListener;
     }
 
     public JPanel getContentPanel() {
         return contentPanel;
     }
 
-    public EventList<PersonsTableFormData> getData() {
-        return data;
+    public EventList<PersonsTableFormData> getPersonsTableData() {
+        return personsTableData;
     }
 
     private static class PersonTableFormat implements TableFormat<PersonsTableFormData> {
