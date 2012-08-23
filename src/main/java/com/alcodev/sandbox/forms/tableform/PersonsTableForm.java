@@ -1,12 +1,13 @@
 package com.alcodev.sandbox.forms.tableform;
 
-import ca.odell.glazedlists.BasicEventList;
-import ca.odell.glazedlists.EventList;
+import ca.odell.glazedlists.*;
 import ca.odell.glazedlists.gui.TableFormat;
 import ca.odell.glazedlists.impl.ThreadSafeList;
-import ca.odell.glazedlists.swing.EventTableModel;
+import ca.odell.glazedlists.swing.EventJXTableModel;
+import org.jdesktop.swingx.JXTable;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -20,22 +21,27 @@ public class PersonsTableForm {
     public static final int COULUMNS_COUNT = 3;
     public static final int ROW_HEIGHT = 30;
     public static final int DOUBLE_CLICK = 2;
-    private JTable tableUserData;
+    private JXTable tableUserData;
     private JPanel contentPanel;
     private EventList<PersonsTableFormData> personsTableData = new ThreadSafeList<PersonsTableFormData>(new BasicEventList<PersonsTableFormData>());
 
     private PersonTableFormActionListener actionListener;
 
     public PersonsTableForm() {
-        final EventTableModel<PersonsTableFormData> model = new EventTableModel<PersonsTableFormData>(personsTableData, new PersonTableFormat());
+        final EventJXTableModel<PersonsTableFormData> model = new EventJXTableModel<PersonsTableFormData>(personsTableData, new PersonTableFormat());
         tableUserData.setModel(model);
+        tableUserData.setAutoCreateRowSorter(false);
+        tableUserData.setRowSorter(null);
+        tableUserData.setSortable(false);
+
         tableUserData.setRowHeight(ROW_HEIGHT);
         tableUserData.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 if (actionListener != null && mouseEvent.getClickCount() == DOUBLE_CLICK) {
                     JTable target = (JTable) mouseEvent.getSource();
-                    int row = target.getSelectedRow();
+                    Point point = mouseEvent.getPoint();
+                    int row = target.rowAtPoint(point);
                     UsageExample.logger.debug("row {} clicked", row);
                     actionListener.onRowClick(model.getElementAt(row));
                 }

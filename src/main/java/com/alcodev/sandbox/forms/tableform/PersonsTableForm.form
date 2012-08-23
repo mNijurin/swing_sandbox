@@ -25,11 +25,15 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="66347" class="javax.swing.JTable" binding="tableUserData">
+          <component id="66347" class="org.jdesktop.swingx.JXTable" binding="tableUserData">
             <constraints/>
             <properties>
               <gridColor color="-16777216"/>
+              <updateSelectionOnSort value="true"/>
             </properties>
+            <clientProperties>
+              <terminateEditOnFocusLost class="java.lang.Boolean" value="true"/>
+            </clientProperties>
           </component>
         </children>
       </scrollpane>

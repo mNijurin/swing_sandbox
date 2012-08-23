@@ -4,8 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
-import java.util.Date;
-import java.util.Random;
+import java.util.Calendar;
 
 /**
  * User: mnijurin
@@ -34,23 +33,29 @@ public class UsageExample {
             }
         });
 
-        final Random random = new Random();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    PersonsTableFormData data = new PersonsTableFormData();
-                    data.setName("Name" + random.nextInt());
-                    data.setSurname("Surname" + random.nextInt());
-                    data.setBirthday(new Date());
-                    personsTableForm.getPersonsTableData().add(data);
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                    }
-                }
-            }
-        }).start();
+        PersonsTableFormData data1 = new PersonsTableFormData();
+        data1.setName("Василий");
+        data1.setSurname("Головачёв");
+        Calendar birthdayTmp1 = Calendar.getInstance();
+        birthdayTmp1.set(2012, 5, 12);
+        data1.setBirthday(birthdayTmp1.getTime());
+        personsTableForm.getPersonsTableData().add(data1);
+
+        PersonsTableFormData data2 = new PersonsTableFormData();
+        data2.setName("Макс");
+        data2.setSurname("фрай");
+        Calendar birthdayTmp2 = Calendar.getInstance();
+        birthdayTmp2.set(2013, 5, 12);
+        data2.setBirthday(birthdayTmp2.getTime());
+        logger.debug("adding data");
+        personsTableForm.getPersonsTableData().add(data2);
+
+        PersonsTableFormData data3 = new PersonsTableFormData();
+        data3.setName("Алекс");
+        data3.setSurname("Пушкин");
+        Calendar birthdayTmp3 = Calendar.getInstance();
+        birthdayTmp3.set(2014, 5, 12);
+        data3.setBirthday(birthdayTmp3.getTime());
+        personsTableForm.getPersonsTableData().add(data3);
     }
 }
