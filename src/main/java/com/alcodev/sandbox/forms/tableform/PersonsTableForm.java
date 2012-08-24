@@ -5,9 +5,10 @@ import ca.odell.glazedlists.gui.TableFormat;
 import ca.odell.glazedlists.impl.ThreadSafeList;
 import ca.odell.glazedlists.swing.EventJXTableModel;
 import org.jdesktop.swingx.JXTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -21,6 +22,8 @@ public class PersonsTableForm {
     public static final int COULUMNS_COUNT = 3;
     public static final int ROW_HEIGHT = 30;
     public static final int DOUBLE_CLICK = 2;
+    public static final int ONE_CLICK = 1;
+    static private Logger logger = LoggerFactory.getLogger(PersonsTableForm.class);
     private JXTable tableUserData;
     private JPanel contentPanel;
     private EventList<PersonsTableFormData> personsTableData = new ThreadSafeList<PersonsTableFormData>(new BasicEventList<PersonsTableFormData>());
@@ -38,12 +41,17 @@ public class PersonsTableForm {
         tableUserData.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                if (actionListener != null && mouseEvent.getClickCount() == DOUBLE_CLICK) {
-                    JTable target = (JTable) mouseEvent.getSource();
-                    Point point = mouseEvent.getPoint();
-                    int row = target.rowAtPoint(point);
-                    UsageExample.logger.debug("row {} clicked", row);
-                    actionListener.onRowClick(model.getElementAt(row));
+                int row = ((JTable) mouseEvent.getSource()).rowAtPoint(mouseEvent.getPoint());
+                if (row == -1) {
+                    logger.debug("row {} clicked", row);
+                    actionListener.onRowClick(row, null);
+                    tableUserData.clearSelection();
+                } else if (actionListener != null && mouseEvent.getClickCount() == ONE_CLICK) {
+                    logger.debug("row {} clicked", row);
+                    actionListener.onRowClick(row, null);
+                } else if (actionListener != null && mouseEvent.getClickCount() == DOUBLE_CLICK) {
+                    logger.debug("row {} clicked", row);
+                    actionListener.onRowClick(row, model.getElementAt(row));
                 }
             }
         });

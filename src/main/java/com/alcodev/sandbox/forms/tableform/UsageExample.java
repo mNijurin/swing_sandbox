@@ -14,6 +14,8 @@ import java.util.Calendar;
 public class UsageExample {
     public static Logger logger = LoggerFactory.getLogger(UsageExample.class);
 
+    private static int clickedRow;
+
     public static void main(String[] args) {
 
         JFrame frame = new JFrame("Person's Table");
@@ -27,9 +29,13 @@ public class UsageExample {
 
         personsTableForm.setActionListener(new PersonTableFormActionListener() {
             @Override
-            public void onRowClick(PersonsTableFormData rowData) {
-                PersonsTableFormData result = rowData;
-                logger.debug("click result: name = {}, surname = {}, birthday = {} ", new Object[]{result.getName(), result.getSurname(), result.getBirthday()});
+            public void onRowClick(int rowNumber, PersonsTableFormData rowData) {
+                if (rowData == null) {
+                    clickedRow = rowNumber;
+                } else {
+                    PersonsTableFormData result = rowData;
+                    logger.debug("click result: name = {}, surname = {}, birthday = {} ", new Object[]{result.getName(), result.getSurname(), result.getBirthday()});
+                }
             }
         });
 

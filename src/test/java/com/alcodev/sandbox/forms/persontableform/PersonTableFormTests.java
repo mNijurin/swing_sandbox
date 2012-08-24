@@ -78,7 +78,7 @@ public class PersonTableFormTests extends UISpecTestCase {
 //        table.doubleClick(0, 0);
 
         mockery.checking(new Expectations() {{
-            oneOf(actionListener).onRowClick(data);
+            oneOf(actionListener).onRowClick(0, data);
         }});
         table.doubleClick(0, 0);
 
