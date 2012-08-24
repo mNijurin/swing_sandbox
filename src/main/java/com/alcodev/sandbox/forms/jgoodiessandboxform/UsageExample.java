@@ -1,4 +1,4 @@
-package com.alcodev.sandbox.forms.jgoodiestestform;
+package com.alcodev.sandbox.forms.jgoodiessandboxform;
 
 import javax.swing.*;
 

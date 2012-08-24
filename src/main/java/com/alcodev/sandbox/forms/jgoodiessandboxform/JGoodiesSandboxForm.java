@@ -1,4 +1,4 @@
-package com.alcodev.sandbox.forms.jgoodiestestform;
+package com.alcodev.sandbox.forms.jgoodiessandboxform;
 
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
