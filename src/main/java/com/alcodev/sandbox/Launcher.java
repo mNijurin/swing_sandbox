@@ -22,6 +22,9 @@ import java.util.Calendar;
 public class Launcher {
     private static int clickedRow;
     static private Logger logger = LoggerFactory.getLogger(Launcher.class);
+    static final JFrame frameEdit = new JFrame("Edit data");
+    static PersonEditFormData rowDataClickResult = new PersonEditFormData();
+    static final PersonEditForm personEditForm = new PersonEditForm();
 
     public static void main(String[] args) {
 
@@ -53,30 +56,26 @@ public class Launcher {
     }
 
     private static void editSelectedRow(PersonsTableFormData rowData, final PersonsTableForm personsTableForm) {
-        PersonEditFormData result = new PersonEditFormData();
-        result.setName(rowData.getName());
-        result.setSurname(rowData.getSurname());
-        result.setBirthday(rowData.getBirthday());
+        rowDataClickResult.setName(rowData.getName());
+        rowDataClickResult.setSurname(rowData.getSurname());
+        rowDataClickResult.setBirthday(rowData.getBirthday());
 
-        logger.debug("click result: name = {}, surname = {}, birthday = {} ", new Object[]{result.getName(), result.getSurname(), result.getBirthday()});
-        final JFrame frameEdit = new JFrame("Edit data");
+        logger.debug("click result: name = {}, surname = {}, birthday = {} ", new Object[]{rowDataClickResult.getName(), rowDataClickResult.getSurname(), rowDataClickResult.getBirthday()});
 
-        final PersonEditForm personEditForm = new PersonEditForm();
-        personEditForm.setData(result);
+        personEditForm.setData(rowDataClickResult);
         personEditForm.setActionListener(new PersonEditFormActionListener() {
             @Override
             public void submitClick() {
-                PersonsTableFormData result = new PersonsTableFormData();
-                result.setName(personEditForm.getData().getName());
-                result.setSurname(personEditForm.getData().getSurname());
-                result.setBirthday(personEditForm.getData().getBirthday());
-                logger.debug("Edit result: {}", result);
+                PersonsTableFormData submitClickResult = new PersonsTableFormData();
+                submitClickResult.setName(personEditForm.getData().getName());
+                submitClickResult.setSurname(personEditForm.getData().getSurname());
+                submitClickResult.setBirthday(personEditForm.getData().getBirthday());
+                logger.debug("Edit result: {}", submitClickResult.toString());
 
-                personsTableForm.getPersonsTableData().set(clickedRow, result);
+                personsTableForm.getPersonsTableData().set(clickedRow, submitClickResult);
                 frameEdit.setVisible(false);
             }
         });
-
         frameEdit.add(personEditForm.getContentPanel());
         frameEdit.pack();
         frameEdit.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -124,7 +123,7 @@ public class Launcher {
         data1.setName("Василий");
         data1.setSurname("Головачёв");
         Calendar birthdayTmp1 = Calendar.getInstance();
-        birthdayTmp1.set(2012, 5, 12);
+        birthdayTmp1.set(2012, Calendar.APRIL, 12);
         data1.setBirthday(birthdayTmp1.getTime());
         personsTableForm.getPersonsTableData().add(data1);
 
@@ -132,7 +131,7 @@ public class Launcher {
         data2.setName("Макс");
         data2.setSurname("Фрай");
         Calendar birthdayTmp2 = Calendar.getInstance();
-        birthdayTmp2.set(2013, 5, 12);
+        birthdayTmp2.set(2013, Calendar.APRIL, 12);
         data2.setBirthday(birthdayTmp2.getTime());
         personsTableForm.getPersonsTableData().add(data2);
 
@@ -140,7 +139,7 @@ public class Launcher {
         data3.setName("Алекс");
         data3.setSurname("Пушкин");
         Calendar birthdayTmp3 = Calendar.getInstance();
-        birthdayTmp3.set(2014, 5, 12);
+        birthdayTmp3.set(2014, Calendar.APRIL, 12);
         data3.setBirthday(birthdayTmp3.getTime());
         personsTableForm.getPersonsTableData().add(data3);
     }

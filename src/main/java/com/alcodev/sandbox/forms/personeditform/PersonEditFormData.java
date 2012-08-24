@@ -9,7 +9,7 @@ import java.util.Date;
  * Date: 8/17/12
  * Time: 12:06 PM
  */
-public class PersonEditFormData extends Model{
+public class PersonEditFormData extends Model {
     private String name;
     private String surname;
     private Date birthday;
@@ -22,6 +22,7 @@ public class PersonEditFormData extends Model{
         String oldName = this.name;
         this.name = name;
         firePropertyChange("name", oldName, name);
+        System.out.println("name after change = " + this.surname);
     }
 
     public String getSurname() {

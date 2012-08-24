@@ -52,7 +52,7 @@ public class PersonEditForm {
     }
 
     private void createUIComponents() {
-        adapter = new BeanAdapter<PersonEditFormData>(new PersonEditFormData());
+        adapter = new BeanAdapter<PersonEditFormData>(new PersonEditFormData(), true);
         textFieldName = BasicComponentFactory.createTextField(adapter.getValueModel("name"));
         textFieldSurname = BasicComponentFactory.createTextField(adapter.getValueModel("surname"));
         formattedTextFieldBirthday = BasicComponentFactory.createFormattedTextField(adapter.getValueModel("birthday"), new SimpleDateFormat("dd.MM.yyyy"));

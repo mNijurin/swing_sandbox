@@ -37,4 +37,9 @@ public class PersonsTableFormData {
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
+
+    @Override
+    public String toString() {
+        return name + " " + surname + " " + birthday.toString();
+    }
 }
