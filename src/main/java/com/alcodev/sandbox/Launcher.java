@@ -28,17 +28,17 @@ public class Launcher {
 
     public static void main(String[] args) {
 
-        final JFrame frame = new JFrame("Person's Table");
+        final JFrame tableFrame = new JFrame("Person's Table");
         final PersonsTableForm personsTableForm = new PersonsTableForm();
 
-        frame.setJMenuBar(createMainMenu(frame, personsTableForm));
+        tableFrame.setJMenuBar(createMainMenu(tableFrame, personsTableForm));
 
-        frame.add(personsTableForm.getContentPanel());
-        frame.pack();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setSize(600, 400);
-        frame.setVisible(true);
+        tableFrame.add(personsTableForm.getContentPanel());
+        tableFrame.pack();
+        tableFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        tableFrame.setLocationRelativeTo(null);
+        tableFrame.setSize(600, 400);
+        tableFrame.setVisible(true);
 
         personsTableForm.setActionListener(new PersonTableFormActionListener() {
             @Override
@@ -47,22 +47,22 @@ public class Launcher {
                     clickedRow = rowNumber;
                 } else {
                     clickedRow = rowNumber;
-                    editSelectedRow(rowData, personsTableForm);
+                    editSelectedRow(rowData);
                 }
+            }
+
+            @Override
+            public void onRowRightClick(int rowNumber) {
+                clickedRow = rowNumber;
+//                todo: show context menu hear - edit if row>-1, add if row=-1
             }
         });
 
         stubDataProvider(personsTableForm);
+        setupPersonEditForm(personsTableForm);
     }
 
-    private static void editSelectedRow(PersonsTableFormData rowData, final PersonsTableForm personsTableForm) {
-        rowDataClickResult.setName(rowData.getName());
-        rowDataClickResult.setSurname(rowData.getSurname());
-        rowDataClickResult.setBirthday(rowData.getBirthday());
-
-        logger.debug("click result: name = {}, surname = {}, birthday = {} ", new Object[]{rowDataClickResult.getName(), rowDataClickResult.getSurname(), rowDataClickResult.getBirthday()});
-
-        personEditForm.setData(rowDataClickResult);
+    private static void setupPersonEditForm(final PersonsTableForm personsTableForm) {
         personEditForm.setActionListener(new PersonEditFormActionListener() {
             @Override
             public void submitClick() {
@@ -81,6 +81,17 @@ public class Launcher {
         frameEdit.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frameEdit.setLocationRelativeTo(null);
         frameEdit.setSize(320, 240);
+    }
+
+    private static void editSelectedRow(PersonsTableFormData rowData) {
+        rowDataClickResult.setName(rowData.getName());
+        rowDataClickResult.setSurname(rowData.getSurname());
+        rowDataClickResult.setBirthday(rowData.getBirthday());
+
+        logger.debug("click result: name = {}, surname = {}, birthday = {} ", new Object[]{rowDataClickResult.getName(), rowDataClickResult.getSurname(), rowDataClickResult.getBirthday()});
+
+        personEditForm.setData(rowDataClickResult);
+
         frameEdit.setVisible(true);
     }
 
@@ -107,7 +118,7 @@ public class Launcher {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (clickedRow > -1) {
-                    editSelectedRow(personsTableForm.getPersonsTableData().get(clickedRow), personsTableForm);
+                    editSelectedRow(personsTableForm.getPersonsTableData().get(clickedRow));
                 }
             }
         });

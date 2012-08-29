@@ -37,6 +37,11 @@ public class UsageExample {
                     logger.debug("click result: name = {}, surname = {}, birthday = {} ", new Object[]{result.getName(), result.getSurname(), result.getBirthday()});
                 }
             }
+
+            @Override
+            public void onRowRightClick(int rowNumber) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
         });
 
         PersonsTableFormData data1 = new PersonsTableFormData();

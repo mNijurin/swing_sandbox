@@ -41,17 +41,22 @@ public class PersonsTableForm {
         tableUserData.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                int row = ((JTable) mouseEvent.getSource()).rowAtPoint(mouseEvent.getPoint());
-                if (row == -1) {
-                    logger.debug("row {} clicked", row);
-                    actionListener.onRowClick(row, null);
-                    tableUserData.clearSelection();
-                } else if (actionListener != null && mouseEvent.getClickCount() == ONE_CLICK) {
-                    logger.debug("row {} clicked", row);
-                    actionListener.onRowClick(row, null);
-                } else if (actionListener != null && mouseEvent.getClickCount() == DOUBLE_CLICK) {
-                    logger.debug("row {} clicked", row);
-                    actionListener.onRowClick(row, model.getElementAt(row));
+                if (actionListener != null) {
+                    int row = ((JTable) mouseEvent.getSource()).rowAtPoint(mouseEvent.getPoint());
+                    if (mouseEvent.getButton() != MouseEvent.BUTTON2 && row == -1) {
+                        logger.debug("row {} clicked", row);
+                        actionListener.onRowClick(row, null);
+                        tableUserData.clearSelection();
+                    } else if (mouseEvent.getButton() != MouseEvent.BUTTON2 && mouseEvent.getClickCount() == ONE_CLICK) {
+                        logger.debug("row {} clicked", row);
+                        actionListener.onRowClick(row, null);
+                    } else if (mouseEvent.getButton() != MouseEvent.BUTTON2 && mouseEvent.getClickCount() == DOUBLE_CLICK) {
+                        logger.debug("row {} clicked", row);
+                        actionListener.onRowClick(row, model.getElementAt(row));
+                    } else if (mouseEvent.getButton() == MouseEvent.BUTTON2) {
+                        logger.debug("row {} right clicked", row);
+                        actionListener.onRowRightClick(row);
+                    }
                 }
             }
         });

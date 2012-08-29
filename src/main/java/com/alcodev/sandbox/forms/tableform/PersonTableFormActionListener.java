@@ -7,4 +7,6 @@ package com.alcodev.sandbox.forms.tableform;
  */
 public interface PersonTableFormActionListener {
     void onRowClick(int rowNumber, PersonsTableFormData rowData);
+
+    void onRowRightClick(int rowNumber);
 }
