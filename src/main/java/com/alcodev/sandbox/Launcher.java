@@ -6,10 +6,12 @@ import com.alcodev.sandbox.forms.personeditform.PersonEditFormData;
 import com.alcodev.sandbox.forms.tableform.PersonTableFormActionListener;
 import com.alcodev.sandbox.forms.tableform.PersonsTableForm;
 import com.alcodev.sandbox.forms.tableform.PersonsTableFormData;
+import org.jdesktop.swingx.JXTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -52,9 +54,15 @@ public class Launcher {
             }
 
             @Override
-            public void onRowRightClick(int rowNumber) {
+            public void onRowRightClick(int rowNumber, JXTable tableUserData, Point mousePoint) {
                 clickedRow = rowNumber;
 //                todo: show context menu hear - edit if row>-1, add if row=-1
+                if (rowNumber > -1) {
+                    JPopupMenu popup = new JPopupMenu();
+                    JMenuItem menuItem = new JMenuItem("A popup menu item");
+                    popup.add(menuItem);
+                    popup.show(tableUserData, mousePoint.x, mousePoint.y);
+                }
             }
         });
 

@@ -1,9 +1,11 @@
 package com.alcodev.sandbox.forms.tableform;
 
+import org.jdesktop.swingx.JXTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Calendar;
 
 /**
@@ -39,7 +41,7 @@ public class UsageExample {
             }
 
             @Override
-            public void onRowRightClick(int rowNumber) {
+            public void onRowRightClick(int rowNumber, JXTable tableUserData, Point mousePoint) {
                 //To change body of implemented methods use File | Settings | File Templates.
             }
         });

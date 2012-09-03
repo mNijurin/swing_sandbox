@@ -43,19 +43,19 @@ public class PersonsTableForm {
             public void mouseClicked(MouseEvent mouseEvent) {
                 if (actionListener != null) {
                     int row = ((JTable) mouseEvent.getSource()).rowAtPoint(mouseEvent.getPoint());
-                    if (mouseEvent.getButton() != MouseEvent.BUTTON2 && row == -1) {
+                    if (mouseEvent.getButton() == MouseEvent.BUTTON1 && row == -1) {
                         logger.debug("row {} clicked", row);
                         actionListener.onRowClick(row, null);
                         tableUserData.clearSelection();
-                    } else if (mouseEvent.getButton() != MouseEvent.BUTTON2 && mouseEvent.getClickCount() == ONE_CLICK) {
+                    } else if (mouseEvent.getButton() == MouseEvent.BUTTON1 && mouseEvent.getClickCount() == ONE_CLICK) {
                         logger.debug("row {} clicked", row);
                         actionListener.onRowClick(row, null);
-                    } else if (mouseEvent.getButton() != MouseEvent.BUTTON2 && mouseEvent.getClickCount() == DOUBLE_CLICK) {
+                    } else if (mouseEvent.getButton() == MouseEvent.BUTTON1 && mouseEvent.getClickCount() == DOUBLE_CLICK) {
                         logger.debug("row {} clicked", row);
                         actionListener.onRowClick(row, model.getElementAt(row));
-                    } else if (mouseEvent.getButton() == MouseEvent.BUTTON2) {
+                    } else if (mouseEvent.getButton() == MouseEvent.BUTTON3) {
                         logger.debug("row {} right clicked", row);
-                        actionListener.onRowRightClick(row);
+                        actionListener.onRowRightClick(row, tableUserData, mouseEvent.getPoint());
                     }
                 }
             }
