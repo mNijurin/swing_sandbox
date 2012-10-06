@@ -1,10 +1,10 @@
 package com.alcodev.sandbox.forms.tableform;
 
-import ca.odell.glazedlists.*;
+import ca.odell.glazedlists.BasicEventList;
+import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.gui.TableFormat;
 import ca.odell.glazedlists.impl.ThreadSafeList;
 import ca.odell.glazedlists.swing.EventJXTableModel;
-import org.jdesktop.swingx.JXTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +24,7 @@ public class PersonsTableForm {
     public static final int DOUBLE_CLICK = 2;
     public static final int ONE_CLICK = 1;
     static private Logger logger = LoggerFactory.getLogger(PersonsTableForm.class);
-    private JXTable tableUserData;
+    private JTable tableUserData;
     private JPanel contentPanel;
     private EventList<PersonsTableFormData> personsTableData = new ThreadSafeList<PersonsTableFormData>(new BasicEventList<PersonsTableFormData>());
 
@@ -35,7 +35,7 @@ public class PersonsTableForm {
         tableUserData.setModel(model);
         tableUserData.setAutoCreateRowSorter(false);
         tableUserData.setRowSorter(null);
-        tableUserData.setSortable(false);
+//        tableUserData.setSortable(false);
 
         tableUserData.setRowHeight(ROW_HEIGHT);
         tableUserData.addMouseListener(new MouseAdapter() {
@@ -55,7 +55,7 @@ public class PersonsTableForm {
                         actionListener.onRowClick(row, model.getElementAt(row));
                     } else if (mouseEvent.getButton() == MouseEvent.BUTTON3) {
                         logger.debug("row {} right clicked", row);
-                        actionListener.onRowRightClick(row, tableUserData, mouseEvent.getPoint());
+//                        actionListener.onRowRightClick(row, tableUserData, mouseEvent.getPoint());
                     }
                 }
             }

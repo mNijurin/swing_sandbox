@@ -28,10 +28,13 @@
           <component id="66347" class="org.jdesktop.swingx.JXTable" binding="tableUserData">
             <constraints/>
             <properties>
+              <autoCreateRowSorter value="true"/>
+              <autoStartEditOnKeyStroke value="true"/>
               <gridColor color="-16777216"/>
               <updateSelectionOnSort value="true"/>
             </properties>
             <clientProperties>
+              <JTable.autoStartsEdit class="java.lang.Boolean" value="true"/>
               <terminateEditOnFocusLost class="java.lang.Boolean" value="true"/>
             </clientProperties>
           </component>
