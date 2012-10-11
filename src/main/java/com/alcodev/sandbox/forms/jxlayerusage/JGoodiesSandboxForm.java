@@ -63,6 +63,8 @@ public class JGoodiesSandboxForm {
         builder.addLabel("D [mm]", constraints.xy(5, 11));
         builder.add(diameterField, constraints.xy(7, 11));
 
+//        JXLayer клёвые гуи доступны только в седьмой жаве. поставить её на макось = пиздец. разобраться с этим позже
+
         return builder.getPanel();
 //        return contentPanel;
     }

@@ -63,11 +63,6 @@
             <artifactId>swingx</artifactId>
             <version>1.6.1</version>
         </dependency>
-        <dependency>
-            <groupId>net.java.dev.glazedlists</groupId>
-            <artifactId>glazedlists_java15</artifactId>
-            <version>1.8.0</version>
-        </dependency>
 
     </dependencies>
 </project>
