@@ -11,11 +11,11 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
 
 /**
  * User: mnijurin
@@ -24,22 +24,29 @@ import java.util.Random;
  */
 public class JTableCustomCreate {
     private JPanel contentPanel;
+    private JTable jTable;
+    final EventList<JTableData> tableData = new ThreadSafeList<JTableData>(new BasicEventList<JTableData>());
 
+    public JTableCustomCreate() {
+        createUIComponents();
+
+
+        EventTableModel<JTableData> model = new EventTableModel<JTableData>(tableData, new MyTableFormat());
+
+        jTable.setModel(model);
+        jTable.setDefaultRenderer(Object.class, new MyRenderer());
+        jTable.getColumnModel().getColumn(1).setCellRenderer(new CheckBoxRenderer());
+        fillStrings(tableData);
+    }
 
     private void createUIComponents() {
 
-        EventList<String> string = new ThreadSafeList<String>(new BasicEventList<String>());
 
-        EventTableModel<String> model = new EventTableModel<String>(string, new MyTableFormat());
-
-        final JTable jTable = new JTable();
-        jTable.setModel(model);
-        jTable.setDefaultRenderer(Object.class, new MyRenderer());
+        this.jTable = new JTable();
 
         JScrollPane scrollPane = new JScrollPane(jTable);
         scrollPane.setPreferredSize(new Dimension(450, 32000));
 
-        fillStrings(string);
 
         JButton jButton = new JButton("test add column");
         jButton.addMouseListener(new MouseAdapter() {
@@ -64,10 +71,12 @@ public class JTableCustomCreate {
         contentPanel = builder.getPanel();
     }
 
-    private void fillStrings(EventList<String> string) {
-        Random random = new Random();
-        for (int i = 0; i < 100; i++) {
-            string.add(String.valueOf(random.nextInt()));
+    private void fillStrings(EventList<JTableData> tableData) {
+        for (int i = 0; i < 50; i++) {
+            JTableData data = new JTableData();
+            data.setBoolValue(false);
+            data.setString("qwer" + i);
+            tableData.add(data);
         }
     }
 
@@ -75,10 +84,10 @@ public class JTableCustomCreate {
         return contentPanel;
     }
 
-    public class MyTableFormat implements TableFormat<String> {
+    public class MyTableFormat implements TableFormat<JTableData> {
         @Override
         public int getColumnCount() {
-            return 1;
+            return 2;
         }
 
         @Override
@@ -87,11 +96,11 @@ public class JTableCustomCreate {
         }
 
         @Override
-        public Object getColumnValue(String s, int index) {
+        public Object getColumnValue(JTableData data, int index) {
             if (index == 0) {
-                return s;
+                return data.getString();
             }
-            if (index == 1) return "1";
+            if (index == 1) return data.getBoolValue();
             if (index == 2) return "2";
             if (index == 3) return "3";
             return "4";
@@ -107,11 +116,34 @@ public class JTableCustomCreate {
             if (column == 0) {
                 parent.setFont(parent.getFont().deriveFont(Font.BOLD));
             }
-            int i = row % 2;
-            if (i == 0) {
+            if (row % 2 == 0 && !isSelected) {
                 parent.setBackground(Color.decode("#EBFFE9"));
-            } else parent.setBackground(Color.white);
+            } else if (!isSelected) {
+                setBackground(Color.white);
+            }
             return parent;
+        }
+    }
+
+    public class CheckBoxRenderer extends JCheckBox implements TableCellRenderer {
+
+        CheckBoxRenderer() {
+            setHorizontalAlignment(JLabel.CENTER);
+        }
+
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                                                       boolean isSelected, boolean hasFocus, final int row, final int column) {
+            if (row % 2 == 0 && !isSelected) {
+                setBackground(Color.decode("#EBFFE9"));
+            } else if (!isSelected) {
+                setBackground(Color.white);
+            }
+            if (isSelected) {
+                setForeground(table.getSelectionForeground());
+                setBackground(table.getSelectionBackground());
+            }
+            setSelected((value != null && (Boolean) value));
+            return this;
         }
     }
 }
