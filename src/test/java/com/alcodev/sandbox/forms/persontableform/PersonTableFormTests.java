@@ -1,8 +1,8 @@
 package com.alcodev.sandbox.forms.persontableform;
 
+import com.alcodev.sandbox.forms.tableform.PersonData;
 import com.alcodev.sandbox.forms.tableform.PersonTableFormActionListener;
 import com.alcodev.sandbox.forms.tableform.PersonsTableForm;
-import com.alcodev.sandbox.forms.tableform.PersonsTableFormData;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.uispec4j.Table;
@@ -42,13 +42,13 @@ public class PersonTableFormTests extends UISpecTestCase {
         Date expectedBirthday = new Date();
         String expectedName = "Name" + random.nextInt();
 
-        PersonsTableFormData data = new PersonsTableFormData();
+        PersonData data = new PersonData();
         data.setName(expectedName);
         data.setSurname(expectedSurname);
         SimpleDateFormat birthdayFormatter = new SimpleDateFormat("dd.MM.yyyy");
         data.setBirthday(expectedBirthday);
 
-        form.getPersonsTableData().add(data);
+        form.getPersonsData().add(data);
 
         Table table = getMainWindow().getTable();
 
@@ -64,13 +64,13 @@ public class PersonTableFormTests extends UISpecTestCase {
         Date expectedBirthday = new Date();
         String expectedName = "Name" + random.nextInt();
 
-        final PersonsTableFormData data = new PersonsTableFormData();
+        final PersonData data = new PersonData();
         data.setName(expectedName);
         data.setSurname(expectedSurname);
         SimpleDateFormat birthdayFormatter = new SimpleDateFormat("dd.MM.yyyy");
         data.setBirthday(expectedBirthday);
 
-        form.getPersonsTableData().add(data);
+        form.getPersonsData().add(data);
 
         form.setActionListener(actionListener);
 

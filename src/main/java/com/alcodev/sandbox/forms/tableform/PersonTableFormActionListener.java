@@ -10,7 +10,7 @@ import java.awt.*;
  * Time: 12:28 PM
  */
 public interface PersonTableFormActionListener {
-    void onRowClick(int rowNumber, PersonsTableFormData rowData);
+    void onRowClick(int rowNumber, PersonData rowData);
 
     void onRowRightClick(int rowNumber, JXTable tableUserData, Point mousePoint);
 }

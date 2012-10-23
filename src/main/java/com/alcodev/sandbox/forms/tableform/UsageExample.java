@@ -31,11 +31,11 @@ public class UsageExample {
 
         personsTableForm.setActionListener(new PersonTableFormActionListener() {
             @Override
-            public void onRowClick(int rowNumber, PersonsTableFormData rowData) {
+            public void onRowClick(int rowNumber, PersonData rowData) {
                 if (rowData == null) {
                     clickedRow = rowNumber;
                 } else {
-                    PersonsTableFormData result = rowData;
+                    PersonData result = rowData;
                     logger.debug("click result: name = {}, surname = {}, birthday = {} ", new Object[]{result.getName(), result.getSurname(), result.getBirthday()});
                 }
             }
@@ -46,29 +46,29 @@ public class UsageExample {
             }
         });
 
-        PersonsTableFormData data1 = new PersonsTableFormData();
+        PersonData data1 = new PersonData();
         data1.setName("Василий");
         data1.setSurname("Головачёв");
         Calendar birthdayTmp1 = Calendar.getInstance();
         birthdayTmp1.set(2012, 5, 12);
         data1.setBirthday(birthdayTmp1.getTime());
-        personsTableForm.getPersonsTableData().add(data1);
+        personsTableForm.getPersonsData().add(data1);
 
-        PersonsTableFormData data2 = new PersonsTableFormData();
+        PersonData data2 = new PersonData();
         data2.setName("Макс");
         data2.setSurname("фрай");
         Calendar birthdayTmp2 = Calendar.getInstance();
         birthdayTmp2.set(2013, 5, 12);
         data2.setBirthday(birthdayTmp2.getTime());
         logger.debug("adding data");
-        personsTableForm.getPersonsTableData().add(data2);
+        personsTableForm.getPersonsData().add(data2);
 
-        PersonsTableFormData data3 = new PersonsTableFormData();
+        PersonData data3 = new PersonData();
         data3.setName("Алекс");
         data3.setSurname("Пушкин");
         Calendar birthdayTmp3 = Calendar.getInstance();
         birthdayTmp3.set(2014, 5, 12);
         data3.setBirthday(birthdayTmp3.getTime());
-        personsTableForm.getPersonsTableData().add(data3);
+        personsTableForm.getPersonsData().add(data3);
     }
 }

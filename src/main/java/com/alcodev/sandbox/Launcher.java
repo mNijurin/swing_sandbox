@@ -3,9 +3,9 @@ package com.alcodev.sandbox;
 import com.alcodev.sandbox.forms.personeditform.PersonEditForm;
 import com.alcodev.sandbox.forms.personeditform.PersonEditFormActionListener;
 import com.alcodev.sandbox.forms.personeditform.PersonEditFormData;
+import com.alcodev.sandbox.forms.tableform.PersonData;
 import com.alcodev.sandbox.forms.tableform.PersonTableFormActionListener;
 import com.alcodev.sandbox.forms.tableform.PersonsTableForm;
-import com.alcodev.sandbox.forms.tableform.PersonsTableFormData;
 import org.jdesktop.swingx.JXTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +44,7 @@ public class Launcher {
 
         personsTableForm.setActionListener(new PersonTableFormActionListener() {
             @Override
-            public void onRowClick(int rowNumber, PersonsTableFormData rowData) {
+            public void onRowClick(int rowNumber, PersonData rowData) {
                 if (rowData == null) {
                     clickedRow = rowNumber;
                 } else {
@@ -74,13 +74,13 @@ public class Launcher {
         personEditForm.setActionListener(new PersonEditFormActionListener() {
             @Override
             public void submitClick() {
-                PersonsTableFormData submitClickResult = new PersonsTableFormData();
+                PersonData submitClickResult = new PersonData();
                 submitClickResult.setName(personEditForm.getData().getName());
                 submitClickResult.setSurname(personEditForm.getData().getSurname());
                 submitClickResult.setBirthday(personEditForm.getData().getBirthday());
                 logger.debug("Edit result: {}", submitClickResult.toString());
 
-                personsTableForm.getPersonsTableData().set(clickedRow, submitClickResult);
+                personsTableForm.getPersonsData().set(clickedRow, submitClickResult);
                 frameEdit.setVisible(false);
             }
         });
@@ -91,7 +91,7 @@ public class Launcher {
         frameEdit.setSize(320, 240);
     }
 
-    private static void editSelectedRow(PersonsTableFormData rowData) {
+    private static void editSelectedRow(PersonData rowData) {
         rowDataClickResult.setName(rowData.getName());
         rowDataClickResult.setSurname(rowData.getSurname());
         rowDataClickResult.setBirthday(rowData.getBirthday());
@@ -126,7 +126,7 @@ public class Launcher {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (clickedRow > -1) {
-                    editSelectedRow(personsTableForm.getPersonsTableData().get(clickedRow));
+                    editSelectedRow(personsTableForm.getPersonsData().get(clickedRow));
                 }
             }
         });
@@ -138,28 +138,28 @@ public class Launcher {
     }
 
     private static void stubDataProvider(PersonsTableForm personsTableForm) {
-        PersonsTableFormData data1 = new PersonsTableFormData();
+        PersonData data1 = new PersonData();
         data1.setName("Василий");
         data1.setSurname("Головачёв");
         Calendar birthdayTmp1 = Calendar.getInstance();
         birthdayTmp1.set(2012, Calendar.APRIL, 12);
         data1.setBirthday(birthdayTmp1.getTime());
-        personsTableForm.getPersonsTableData().add(data1);
+        personsTableForm.getPersonsData().add(data1);
 
-        PersonsTableFormData data2 = new PersonsTableFormData();
+        PersonData data2 = new PersonData();
         data2.setName("Макс");
         data2.setSurname("Фрай");
         Calendar birthdayTmp2 = Calendar.getInstance();
         birthdayTmp2.set(2013, Calendar.APRIL, 12);
         data2.setBirthday(birthdayTmp2.getTime());
-        personsTableForm.getPersonsTableData().add(data2);
+        personsTableForm.getPersonsData().add(data2);
 
-        PersonsTableFormData data3 = new PersonsTableFormData();
+        PersonData data3 = new PersonData();
         data3.setName("Алекс");
         data3.setSurname("Пушкин");
         Calendar birthdayTmp3 = Calendar.getInstance();
         birthdayTmp3.set(2014, Calendar.APRIL, 12);
         data3.setBirthday(birthdayTmp3.getTime());
-        personsTableForm.getPersonsTableData().add(data3);
+        personsTableForm.getPersonsData().add(data3);
     }
 }

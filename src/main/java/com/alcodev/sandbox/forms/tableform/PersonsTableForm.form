@@ -25,7 +25,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="66347" class="org.jdesktop.swingx.JXTable" binding="tableUserData">
+          <component id="66347" class="org.jdesktop.swingx.JXTable" binding="personsTable">
             <constraints/>
             <properties>
               <autoCreateRowSorter value="true"/>

@@ -9,7 +9,7 @@ import java.util.Date;
  * Date: 8/17/12
  * Time: 4:25 PM
  */
-public class PersonsTableFormData {
+public class PersonData {
     private String name;
     private String surname;
     private Date birthday;

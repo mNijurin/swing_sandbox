@@ -24,21 +24,21 @@ public class PersonsTableForm {
     public static final int DOUBLE_CLICK = 2;
     public static final int ONE_CLICK = 1;
     static private Logger logger = LoggerFactory.getLogger(PersonsTableForm.class);
-    private JTable tableUserData;
+    private JTable personsTable;
     private JPanel contentPanel;
-    private EventList<PersonsTableFormData> personsTableData = new ThreadSafeList<PersonsTableFormData>(new BasicEventList<PersonsTableFormData>());
+    private EventList<PersonData> personsData = new ThreadSafeList<PersonData>(new BasicEventList<PersonData>());
 
     private PersonTableFormActionListener actionListener;
 
     public PersonsTableForm() {
-        final EventJXTableModel<PersonsTableFormData> model = new EventJXTableModel<PersonsTableFormData>(personsTableData, new PersonTableFormat());
-        tableUserData.setModel(model);
-        tableUserData.setAutoCreateRowSorter(false);
-        tableUserData.setRowSorter(null);
-//        tableUserData.setSortable(false);
+        final EventJXTableModel<PersonData> model = new EventJXTableModel<PersonData>(personsData, new PersonTableFormat());
+        personsTable.setModel(model);
+        personsTable.setAutoCreateRowSorter(false);
+        personsTable.setRowSorter(null);
+//        personsTable.setSortable(false);
 
-        tableUserData.setRowHeight(ROW_HEIGHT);
-        tableUserData.addMouseListener(new MouseAdapter() {
+        personsTable.setRowHeight(ROW_HEIGHT);
+        personsTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 if (actionListener != null) {
@@ -46,7 +46,7 @@ public class PersonsTableForm {
                     if (mouseEvent.getButton() == MouseEvent.BUTTON1 && row == -1) {
                         logger.debug("row {} clicked", row);
                         actionListener.onRowClick(row, null);
-                        tableUserData.clearSelection();
+                        personsTable.clearSelection();
                     } else if (mouseEvent.getButton() == MouseEvent.BUTTON1 && mouseEvent.getClickCount() == ONE_CLICK) {
                         logger.debug("row {} clicked", row);
                         actionListener.onRowClick(row, null);
@@ -55,13 +55,13 @@ public class PersonsTableForm {
                         actionListener.onRowClick(row, model.getElementAt(row));
                     } else if (mouseEvent.getButton() == MouseEvent.BUTTON3) {
                         logger.debug("row {} right clicked", row);
-//                        actionListener.onRowRightClick(row, tableUserData, mouseEvent.getPoint());
+//                        actionListener.onRowRightClick(row, personsTable, mouseEvent.getPoint());
                     }
                 }
             }
         });
 
-        personsTableData.addListEventListener(model);
+        personsData.addListEventListener(model);
     }
 
     public void setActionListener(PersonTableFormActionListener actionListener) {
@@ -72,11 +72,11 @@ public class PersonsTableForm {
         return contentPanel;
     }
 
-    public EventList<PersonsTableFormData> getPersonsTableData() {
-        return personsTableData;
+    public EventList<PersonData> getPersonsData() {
+        return personsData;
     }
 
-    private static class PersonTableFormat implements TableFormat<PersonsTableFormData> {
+    private static class PersonTableFormat implements TableFormat<PersonData> {
         @Override
         public int getColumnCount() {
             return COULUMNS_COUNT;
@@ -97,7 +97,7 @@ public class PersonsTableForm {
         }
 
         @Override
-        public Object getColumnValue(PersonsTableFormData item, int index) {
+        public Object getColumnValue(PersonData item, int index) {
             switch (index) {
                 case 0:
                     return item.getName();
